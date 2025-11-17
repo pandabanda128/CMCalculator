@@ -1,2 +1,1 @@
-# CMCalculator
-Simple dark themed basic graphing calculator
+7-Zip precompiled binaries.

@@ -1,50 +1,20 @@
 {
-  "name": "cm-calculator",
-  "version": "1.0.0",
-  "description": "A sleek but simple crossplatform calculator that can graph",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "electron .",
-    "dev": "electron .",
-    "build": "electron-builder",
-    "dist": "electron-builder --win"
-  },
-  "dependencies": {
-  },
-  "devDependencies": {
-    "electron-builder": "^24.5.0",
-    "electron": "^25.0.0" 
-  },
-  "author": "John Doe <youdontneedmy@email.com>",
-  "homepage":"https://github.com/pandabanda128/CMCalculator",
-  "build": {
-    "appId": "com.cm.calculator",
-    "productName": "CMCalculator",
-    "files": [
-      "dist/**/*",
-      "src/**/*"
-    ],
-    "directories": {
-      "output": "dist"
-    },
-    "mac": {
-      "target": [
-        "dmg",
-        "zip"
-      ]
-    },
-    "win": {
-      "target": [
-        "nsis",
-        "zip"
-      ]
-    },
-    "linux": {
-      "target": [
-        "AppImage",
-        "deb"
-      ]
-    }
-  },
-  "license": "MIT"
+  "name": "7zip-bin",
+  "description": "7-Zip precompiled binaries",
+  "version": "5.2.0",
+  "files": [
+    "*.js",
+    "7x.sh",
+    "index.d.ts",
+    "linux",
+    "mac",
+    "win"
+  ],
+  "license": "MIT",
+  "repository": "develar/7zip-bin",
+  "keywords": [
+    "7zip",
+    "7z",
+    "7za"
+  ]
 }
