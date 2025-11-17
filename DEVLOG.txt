@@ -1,0 +1,32 @@
++--------------------+
+| October 20th, 2025 |
++--------------------+
+
+/Caleb/
+I decided that from now on I (just me) would be using VSCodium, a VScode IDE without any microsoft trackers or software inside of it. 
+Due to this it a lot of extensions such as  Live Share aren't available on the marketplace so I had to figure out how to use an alternative to Live Share called "Open Collaberation Tools".
+It took all class so hopefully tomorrow we can start on week 4.
+But actually not because (A) we missed a few things for the past 2 weeks and also we already almost finished week 4.
+
++--------------------+
+| October 21nd, 2025 |
++--------------------+
+
+/Caleb/
+
+Tab highlights the buttons 2nd text element creating this weird protuberance
+>>> SC#1.png <<<
+
++--------------------+
+| October 23rd, 2025 |
++--------------------+
+
+/Caleb/ I forgot to do anything yesterday but that's okay because I gave the 2nd button functionality finally!!!!
+
+
+
++--------------------+
+| November 3rd, 2025 |
++--------------------+
+
+I added decimals

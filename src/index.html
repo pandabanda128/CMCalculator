@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Calculator</title>
+  <link rel="stylesheet" href="index.css" />
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.3.2/math.js"></script>
+
+</head>
+
+<body>
+  
+  <div id="answerbx">
+  <input type="text" id="functionInput" placeholder="Enter a function" />
+  <div id="graph"></div>
+  <p id="answerbxtxt"></p>
+  </div>   
+
+
+  <div class="btncontainer">
+  <div><button class="btns" onclick="altMode();scndtrackr=1;"><p class="btns1">2nd</p></button></div>
+  <div><button class="btns" onclick="square();"><p class="btns1">^2</p><p class="btns2">√</p></button></div>
+  <div><button class="btns" id="gbtn" onclick="graph(); graphmode+=1; if (graphmode=1){graphmode=-1;} "><p class="btns1">G</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent += '+';"><p class="btns1">+</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent += 1;"> <p class="btns1">1</p><p class="btns2">%</p> </button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=2;"><p class="btns1">2</p><p class="btns2">(</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=3;"><p class="btns1">3</p><p class="btns2">)</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +='-';"><p class="btns1">-</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=4;"><p class="btns1">4</p><p class="btns2">↑</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=5;"><p class="btns1">5</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=6;"><p class="btns1">6</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +='÷';"><p class="btns1">÷</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=7;"><p class="btns1">7</p><p class="btns2">↓</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=8;"><p class="btns1">8</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=9;"><p class="btns1">9</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +='⋅';"><p class="btns1">⋅</p></button></div>
+  <div><button class="btns" onclick="Backspace();"><img id="backspaceimage" src="/home/jiele/projects/calculator/images/backspace.png" /><p class="btns2">c</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +=0;"><p class="btns1">0</p><p class="btns2">.</p></button></div>
+  <div><button class="btns" onclick="answerbxtxt.textContent +='𝝿';"><p class="btns1">𝝿</p><p class="btns2">as</p></button></div>
+  <div><button class="btns" onclick="Enter();"><p class="btns1">=</p><p class="btns2">E</p></button></div>
+  </div>
+  
+<script>
+    var scndtrackr = 0;
+    var graphmode = 0;
+    const answerbxtxt = document.getElementById("answerbxtxt");
+    var answerbxtxtheight = answerbxtxt.style.height;
+    document.addEventListener('keydown', (event) => {
+      if (graphmode=0){
+      const printable = ['0','1','2','3','4','5','6','7','8','9','+','-','.','%','(',')'];
+      const altPrintable = [''];
+      if (printable.includes(event.key)) {answerbxtxt.textContent += event.key;}
+      if (event.key === "Enter") {Enter();}
+      if (event.key === "Backspace") {Backspace();}
+      if (event.key == "*"){answerbxtxt.textContent+="⋅";}
+      if (event.key == "/"){answerbxtxt.textContent+="÷";}
+      }
+    }
+  );
+  
+    function Enter() {
+        try {
+        let eq = answerbxtxt.textContent
+          .replace(/⋅/g, '*')
+          .replace(/÷/g, '/');
+        answerbxtxt.textContent = eval(eq);
+      } catch {
+        answerbxtxt.textContent = "Error";
+        }
+      }
+
+    function Backspace() {
+      document.getElementById("graph").style.display = "none";
+      document.getElementById("functionInput").style.display = "none";
+      document.getElementById("functionInput").innerText = " ";
+      answerbxtxt.textContent = answerbxtxt.textContent.slice(0, -1);
+    }
+    function graph() {
+      var graphmode =+ 1;
+      document.getElementById("graph").style.display = "block";
+      document.getElementById("functionInput").style.display = "block";
+      answerbxtxt.textContent = " ";
+      const input = document.getElementById("functionInput").value;
+      let expr;
+      try {
+        expr = math.parse(input);
+      } catch (err) {
+        return alert("Invalid function syntax!");
+      }
+
+      const f = expr.compile();
+      const xValues = math.range(-10, 10, 0.1).toArray();
+      const yValues = xValues.map(x => {
+        try {
+          return f.evaluate({ x });
+        } catch {
+          return NaN;
+        }
+      });
+
+      const trace = {
+        x: xValues,
+        y: yValues,
+        type: 'scatter',
+        mode: 'lines',
+        name: `f(x) = ${input}`,
+        line: { color: 'blue', width: 2 }
+      };
+
+      const layout = {
+        title: `Graph of f(x) = ${input}`,
+        xaxis: { title: 'x' },
+        yaxis: { title: 'f(x)' },
+        margin: { t: 50, r: 30, b: 50, l: 50 }
+      };
+
+      Plotly.newPlot('graph', [trace], layout);
+    }
+  </script>
+
+</BODY>
+</HTML>
